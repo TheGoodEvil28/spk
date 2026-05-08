@@ -1,0 +1,191 @@
+/* assets/css/auth-style.css */
+
+/* === RESET DASAR === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* === PEMBAGIAN LAYAR (SPLIT SCREEN) === */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* === PANEL KIRI === */
+.left-panel {
+    flex: 1;
+    position: relative;
+    background-image: url('../images/bg-lab-icn.png'); 
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 40px 50px;
+    /* Catatan: display flex dan justify-content di sini DIHAPUS 
+       agar tidak bertabrakan dengan yang ada di content */
+}
+
+/* Lapisan Gelap (sudah dinonaktifkan oleh Anda, biarkan saja seperti ini atau hapus sekalian) */
+.left-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* background: rgba(0, 0, 0, 0.65); */
+    z-index: 1;
+}
+
+/* === KONTEN PANEL KIRI === */
+.left-panel-content {
+    position: relative;
+    z-index: 2;
+    height: 100%; /* WAJIB ADA: Memaksa area ini setinggi layar */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Kunci utama untuk menengahkan secara vertikal */
+}
+
+.header-text {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon {
+    width: 24px; 
+}
+
+.main-title h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.main-title p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.footer-text {
+    font-size: 14px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* === PANEL KANAN === */
+.right-panel {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    /* Tambahan agar jika form panjang (seperti daftar), bisa di-scroll secara internal */
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Menyembunyikan scrollbar bawaan agar lebih rapi */
+.form-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.logo-icn {
+    width: 120px;
+    display: block;
+    margin: 0 auto 30px auto;
+}
+
+.form-wrapper h2 {
+    font-size: 32px;
+    color: #043152;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.input-group {
+    margin-bottom: 15px; /* Sedikit dirapatkan karena form daftar lebih banyak field-nya */
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #111;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #043152;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: #043152;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #032138;
+}
+
+.link-bawah {
+    text-align: right;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.link-bawah a {
+    color: #043152;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.link-bawah a:hover {
+    text-decoration: underline;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-panel {
+        display: none;
+    }
+}
