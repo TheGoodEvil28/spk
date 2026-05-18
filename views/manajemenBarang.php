@@ -22,6 +22,29 @@ if (!isset($_SESSION['user_id'])) {
             <a href="index.php?action=tambahBarang" class="btn-tambah">+ Tambah Barang</a>
         </div>
 
+        <form method="get" class="filter-form">
+            <input type="hidden" name="action" value="manajemenBarang">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="search">Cari Barang</label>
+                    <input type="text" id="search" name="search" value="<?= htmlspecialchars($search ?? '') ?>" placeholder="Nama atau spesifikasi...">
+                </div>
+                <div class="filter-group">
+                    <label for="status">Status Stok</label>
+                    <select id="status" name="status">
+                        <option value="semua" <?= ($status ?? 'semua') === 'semua' ? 'selected' : '' ?>>Semua</option>
+                        <option value="aman" <?= ($status ?? '') === 'aman' ? 'selected' : '' ?>>Stok Aman</option>
+                        <option value="hampir" <?= ($status ?? '') === 'hampir' ? 'selected' : '' ?>>Hampir Habis</option>
+                        <option value="kritis" <?= ($status ?? '') === 'kritis' ? 'selected' : '' ?>>Kritis</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button type="submit" class="btn-tambah" style="margin-right:10px;">Terapkan Filter</button>
+                    <a href="index.php?action=manajemenBarang" class="btn-tambah" style="background:#6c757d;">Reset</a>
+                </div>
+            </div>
+        </form>
+
         <!-- Tampilkan pesan flash -->
         <?php if (isset($_SESSION['flash_message'])): ?>
             <div class="alert alert-<?= $_SESSION['flash_type'] == 'success' ? 'success' : 'danger' ?>" style="padding:10px; margin-bottom:20px; border-radius:5px; <?= $_SESSION['flash_type'] == 'success' ? 'background:#d4edda; color:#155724;' : 'background:#f8d7da; color:#721c24;' ?>">
@@ -88,6 +111,32 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 
 <style>
+.filter-form {
+    margin-bottom: 20px;
+}
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.filter-group input,
+.filter-group select {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+    width: 240px;
+}
+.filter-actions {
+    display: flex;
+    gap: 8px;
+}
 .btn-edit:hover { background:#0069d9 !important; }
 .btn-hapus:hover { background:#c82333 !important; }
 </style>

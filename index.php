@@ -13,6 +13,7 @@ switch ($action) {
     case 'register_process': $app->registerProcess(); break;
     case 'logout': $app->logout(); break;
     case 'manajemenBarang': $app->manajemenBarang(); break;
+    case 'dashboard': $app->dashboard(); break;
     case 'tambahBarang': $app->tambahBarang(); break;
     case 'editBarang':      $app->editBarang(); break;
     case 'updateBarang':    $app->updateBarang(); break;
@@ -21,7 +22,10 @@ switch ($action) {
     case 'manajemenKriteria': $app->manajemenKriteria(); break;
     case 'simpanKriteria': $app->simpanKriteria(); break;
     case 'perhitunganSpk': $app->perhitunganSpk(); break;
+    case 'prosesPerhitungan': $app->prosesPerhitungan(); break;
     case 'hasilPerhitungan': $app->hasilPerhitungan(); break;
+    case 'mlReport': $app->mlReport(); break;
+    case 'generateMlReport': $app->generateMlReport(); break;
     case 'hapusKriteria': $app->hapusKriteria(); break; 
     default: $app->loginForm(); break;
 }

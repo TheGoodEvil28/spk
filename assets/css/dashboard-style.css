@@ -566,3 +566,165 @@ textarea.form-control {
 .btn-excel:hover {
     background-color: #15803d;
 }
+
+
+
+/* =========================================
+   11. DASHBOARD CARDS
+   ========================================= */
+
+.cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.info-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.info-card h4 {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.big-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1;
+}
+
+/* =========================================
+   12. DASHBOARD CHARTS
+   ========================================= */
+
+.charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.chart-panel {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+    position: relative;
+    height: 300px;
+}
+
+.chart-panel h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 14px;
+}
+
+.chart-panel .chart-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    align-items: stretch;
+}
+
+.chart-panel canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    display: block;
+}
+
+.chart-panel.wide {
+    grid-column: span 2;
+    height: 360px;
+}
+
+.chart-panel.wide canvas {
+    height: calc(100% - 46px) !important;
+    max-height: calc(100% - 46px) !important;
+}
+
+/* =========================================
+   13. MAIN CONTENT DASHBOARD IMPROVEMENT
+   ========================================= */
+
+.main-content {
+    margin-left: 260px;
+    padding: 28px 35px;
+    width: calc(100% - 260px);
+    background-color: #f5f7fb;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.page-title {
+    font-size: 30px;
+    color: #111827;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+/* =========================================
+   14. RESPONSIVE DASHBOARD
+   ========================================= */
+
+@media (max-width: 1200px) {
+
+    .cards-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-row {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-panel.wide {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .cards-row {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-panel {
+        height: auto;
+    }
+
+    .chart-panel canvas {
+        height: 220px !important;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .big-number {
+        font-size: 26px;
+    }
+}

@@ -7,6 +7,9 @@
     <img src="assets/images/logo-icn.png" alt="Logo Lab ICN" class="sidebar-logo">
     
     <ul class="sidebar-menu">
+        <li class="<?php echo ($current_action == 'dashboard') ? 'active' : ''; ?>">
+            <a href="index.php?action=dashboard">Dashboard</a>
+        </li>
         
         <li class="<?php echo ($current_action == 'manajemenBarang' || $current_action == 'tambahBarang') ? 'active' : ''; ?>">
             <a href="index.php?action=manajemenBarang">Manajemen Barang</a>
@@ -22,6 +25,9 @@
 
         <li class="<?php echo ($current_action == 'hasilPerhitungan') ? 'active' : ''; ?>">
             <a href="index.php?action=hasilPerhitungan">Hasil Perhitungan</a>
+        </li>
+        <li class="<?php echo ($current_action == 'mlReport') ? 'active' : ''; ?>">
+            <a href="index.php?action=mlReport">Laporan ML</a>
         </li>
     </ul>
 

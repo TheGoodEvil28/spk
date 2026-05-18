@@ -1,0 +1,101 @@
+{
+  "success": true,
+  "matriks_id": 11,
+  "output": "/var/www/html/controllers/../ml/reports/report_20260518153118.xlsx",
+  "rows": [
+    {
+      "nama_barang": "Mouse Wireless",
+      "procurement_priority": "High Priority",
+      "consensus_rank": 1,
+      "skor": 0.242934,
+      "nilai_v": 0.242934,
+      "nilai_yi": 0.19017,
+      "nilai_vi_saw": 0.8625,
+      "nilai_vi_topsis": 0.687166,
+      "rank_moora": 1,
+      "rank_saw": 1,
+      "rank_topsis": 1
+    },
+    {
+      "nama_barang": "Monitor Dell 24\"",
+      "procurement_priority": "High Priority",
+      "consensus_rank": 2,
+      "skor": 0.23578,
+      "nilai_v": 0.23578,
+      "nilai_yi": 0.164757,
+      "nilai_vi_saw": 0.811548,
+      "nilai_vi_topsis": 0.602675,
+      "rank_moora": 2,
+      "rank_saw": 2,
+      "rank_topsis": 2
+    },
+    {
+      "nama_barang": "Laptop ASUS ROG",
+      "procurement_priority": "Medium Priority",
+      "consensus_rank": 3,
+      "skor": 0.194011,
+      "nilai_v": 0.194011,
+      "nilai_yi": 0.112738,
+      "nilai_vi_saw": 0.7775,
+      "nilai_vi_topsis": 0.409241,
+      "rank_moora": 3,
+      "rank_saw": 3,
+      "rank_topsis": 3
+    },
+    {
+      "nama_barang": "Keyboard Mechanical",
+      "procurement_priority": "Low Priority",
+      "consensus_rank": 4,
+      "skor": 0.176186,
+      "nilai_v": 0.176186,
+      "nilai_yi": 0.0591778,
+      "nilai_vi_saw": 0.64539,
+      "nilai_vi_topsis": 0.382855,
+      "rank_moora": 4,
+      "rank_saw": 5,
+      "rank_topsis": 4
+    },
+    {
+      "nama_barang": "Printer Epson",
+      "procurement_priority": "Low Priority",
+      "consensus_rank": 5,
+      "skor": 0.151089,
+      "nilai_v": 0.151089,
+      "nilai_yi": 0.0505812,
+      "nilai_vi_saw": 0.659936,
+      "nilai_vi_topsis": 0.345096,
+      "rank_moora": 5,
+      "rank_saw": 4,
+      "rank_topsis": 5
+    }
+  ],
+  "cluster_summary": [
+    {
+      "ml_cluster": 1,
+      "consensus_rank": 1.5,
+      "skor": 0.239357,
+      "nilai_v": 0.239357,
+      "nilai_yi": 0.1774635
+    },
+    {
+      "ml_cluster": 2,
+      "consensus_rank": 3.0,
+      "skor": 0.194011,
+      "nilai_v": 0.194011,
+      "nilai_yi": 0.112738
+    },
+    {
+      "ml_cluster": 0,
+      "consensus_rank": 4.5,
+      "skor": 0.1636375,
+      "nilai_v": 0.1636375,
+      "nilai_yi": 0.0548795
+    }
+  ],
+  "label_map": {
+    "1": "High Priority",
+    "2": "Medium Priority",
+    "0": "Low Priority"
+  },
+  "message": "Laporan ML berhasil dibuat."
+}

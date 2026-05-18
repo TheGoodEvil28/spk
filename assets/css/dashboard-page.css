@@ -1,0 +1,252 @@
+/*
+ * dashboard-page.css
+ * Scoped ke selector .dp (dashboard-page)
+ * Tidak menyentuh sidebar, tabel, form, badge, dll dari halaman lain.
+ * Tambahkan class="dp" pada <div class="main-content"> di dashboard.php saja.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =========================================
+   SCOPE ROOT
+   Semua style hanya berlaku di dalam .dp
+   ========================================= */
+
+.dp {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #f0f2f7;
+    padding: 32px 40px;
+    min-height: 100vh;
+}
+
+/* =========================================
+   PAGE TITLE
+   ========================================= */
+
+.dp .page-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0d1b2a;
+    letter-spacing: -0.6px;
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+/* =========================================
+   AI SUMMARY BOX
+   ========================================= */
+
+.dp .ai-summary-box {
+    background: linear-gradient(135deg, #0f3460 0%, #1a5276 60%, #1a6fa0 100%);
+    color: #e8f4fd;
+    padding: 22px 28px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+    line-height: 1.65;
+    border: none;
+    box-shadow: 0 8px 24px rgba(15, 52, 96, 0.22);
+    position: relative;
+    overflow: hidden;
+}
+
+.dp .ai-summary-box::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.dp .ai-summary-box::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: 80px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+}
+
+.dp .ai-summary-box h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+}
+
+.dp .ai-summary-box p {
+    font-size: 14px;
+    color: rgba(232, 244, 253, 0.88);
+    line-height: 1.7;
+}
+
+/* =========================================
+   CARDS ROW
+   ========================================= */
+
+.dp .cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.dp .info-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.055);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.dp .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #0f3460;
+    border-radius: 16px 0 0 16px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.dp .info-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.09);
+}
+
+.dp .info-card:hover::before {
+    opacity: 1;
+}
+
+.dp .info-card:nth-child(1)::before { background: #0f3460; }
+.dp .info-card:nth-child(2)::before { background: #c0392b; }
+.dp .info-card:nth-child(3)::before { background: #1a7a4a; }
+.dp .info-card:nth-child(4)::before { background: #7e57c2; }
+
+.dp .info-card h4 {
+    font-size: 12px;
+    color: #8a94a6;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dp .big-number {
+    font-size: 34px;
+    font-weight: 800;
+    color: #0d1b2a;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/* =========================================
+   CHART PANELS
+   ========================================= */
+
+.dp .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.dp .chart-panel {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.055);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.dp .chart-panel h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0d1b2a;
+    margin-bottom: 14px;
+    letter-spacing: -0.2px;
+    flex-shrink: 0;
+}
+
+.dp .chart-panel .chart-body {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+}
+
+.dp .chart-panel canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    display: block;
+}
+
+.dp .chart-panel.wide {
+    grid-column: span 2;
+    height: 340px;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1200px) {
+    .dp .cards-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dp .charts-row {
+        grid-template-columns: 1fr;
+    }
+
+    .dp .chart-panel.wide {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .dp {
+        padding: 20px 16px;
+    }
+
+    .dp .cards-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .dp .chart-panel {
+        height: auto;
+        min-height: 260px;
+    }
+
+    .dp .page-title {
+        font-size: 22px;
+    }
+
+    .dp .big-number {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dp .cards-row {
+        grid-template-columns: 1fr;
+    }
+}

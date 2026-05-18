@@ -30,6 +30,18 @@ if (!isset($_SESSION['user_id'])) { header('Location: index.php'); exit; }
                 <input type="date" name="tanggal_pembelian" class="form-control" value="<?= $barang['tgl_beli'] ?>" required>
             </div>
             <div class="form-group">
+                <label>Usia Pakai (Bulan)</label>
+                <input type="number" name="usia_pakai_bulan" class="form-control" value="<?= htmlspecialchars($barang['usia_pakai_bulan']) ?>" min="0" required>
+            </div>
+            <div class="form-group">
+                <label>Status Garansi</label>
+                <select name="status_garansi" class="form-control" required>
+                    <option value="Aktif" <?= $barang['status_garansi'] === 'Aktif' ? 'selected' : '' ?>>Aktif</option>
+                    <option value="Hampir Habis" <?= $barang['status_garansi'] === 'Hampir Habis' ? 'selected' : '' ?>>Hampir Habis</option>
+                    <option value="Tidak Aktif" <?= $barang['status_garansi'] === 'Tidak Aktif' ? 'selected' : '' ?>>Tidak Aktif</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label>Stok Tersedia</label>
                 <input type="number" name="stok_tersedia" class="form-control" value="<?= $barang['stok_tersedia'] ?>" required>
             </div>

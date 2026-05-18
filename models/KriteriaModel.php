@@ -13,6 +13,16 @@ class KriteriaModel {
         return $stmt->fetchAll();
     }
 
+    public function getAllIndexedByName() {
+        $stmt = $this->db->query("SELECT * FROM kriteria ORDER BY id_kriteria");
+        $kriteria = $stmt->fetchAll();
+        $indexed = [];
+        foreach ($kriteria as $item) {
+            $indexed[$item['nama']] = $item;
+        }
+        return $indexed;
+    }
+
     public function tambah($nama, $bobot, $tipe) {
         $sql = "INSERT INTO kriteria (nama, bobot, tipe) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($sql);

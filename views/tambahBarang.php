@@ -16,7 +16,14 @@
             <div class="form-group"><label>Nama Barang</label><input type="text" name="nama_barang" class="form-control" required></div>
             <div class="form-group"><label>Spesifikasi</label><textarea name="spesifikasi" class="form-control" required></textarea></div>
             <div class="form-group"><label>Tanggal Pembelian</label><input type="date" name="tanggal_pembelian" class="form-control" required></div>
-            <div class="form-group"><label>Lama Garansi Aktif (Tahun)</label><input type="number" name="lama_garansi" class="form-control" value="5" readonly style="background:#e9ecef;"><small style="color:#666;">*Garansi default 5 tahun</small></div>
+            <div class="form-group"><label>Usia Pakai (Bulan)</label><input type="number" name="usia_pakai_bulan" class="form-control" value="0" min="0" required></div>
+            <div class="form-group"><label>Status Garansi</label>
+                <select name="status_garansi" class="form-control" required>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Hampir Habis">Hampir Habis</option>
+                    <option value="Tidak Aktif">Tidak Aktif</option>
+                </select>
+            </div>
             <div class="form-group"><label>Stok Tersedia</label><input type="number" name="stok_tersedia" class="form-control" required></div>
             <div class="form-group"><label>Stok Minimum</label><input type="number" name="stok_minimum" class="form-control" required></div>
             <div class="form-actions"><button type="submit" class="btn-simpan">Simpan</button></div>

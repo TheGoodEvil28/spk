@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
             border-radius: 4px;
             box-sizing: border-box;
         }
-        .btn-add-row, .btn-tambah-matriks {
+        .btn-tambah-matriks {
             margin-top: 10px;
             background: #28a745;
             color: white;
@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
             cursor: pointer;
             margin-right: 10px;
         }
-        .btn-add-row:hover, .btn-tambah-matriks:hover { background: #218838; }
+        .btn-tambah-matriks:hover { background: #218838; }
         .btn-hapus-baris {
             background: #dc3545;
             color: white;
@@ -80,14 +80,20 @@ if (!isset($_SESSION['user_id'])) {
                             <option value="">-- Pilih Barang --</option>
                             <?php if (!empty($dataBarang)): ?>
                                 <?php foreach ($dataBarang as $b): ?>
-                                    <option value="<?= htmlspecialchars($b['id_barang']) ?>" data-nama="<?= htmlspecialchars($b['nama_barang']) ?>">
+                                    <option value="<?= htmlspecialchars($b['id_barang']) ?>"
+                                        data-nama="<?= htmlspecialchars($b['nama_barang']) ?>"
+                                        data-stok="<?= htmlspecialchars($b['stok_tersedia']) ?>"
+                                        data-minimum="<?= htmlspecialchars($b['stok_minimum']) ?>"
+                                        data-usia="<?= htmlspecialchars($b['usia_pakai_bulan']) ?>"
+                                        data-tgl-beli="<?= htmlspecialchars($b['tgl_beli']) ?>"
+                                        data-garansi="<?= htmlspecialchars($b['status_garansi']) ?>"
+                                        data-spec="<?= htmlspecialchars($b['spesifikasi']) ?>">
                                         <?= htmlspecialchars($b['id_barang']) ?> - <?= htmlspecialchars($b['nama_barang']) ?>
                                     </option>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </select>
                         <button type="button" class="btn-tambah-matriks" id="tambahMatriks">+ Tambah ke Matriks</button>
-                     
                     </div>
                     <div class="table-responsive">
                         <table class="custom-table" id="matriks-table">
@@ -107,22 +113,12 @@ if (!isset($_SESSION['user_id'])) {
                             </tbody>
                         </table>
                     </div>
-                    <small style="color: #666;">Klik "Tambah ke Matriks" untuk memasukkan barang pilihan. Isi nilai sesuai kebutuhan.</small>
+                    <small style="color: #666;">Klik "Tambah ke Matriks" untuk memasukkan barang pilihan. Nilai akan otomatis diambil dari data barang di database.</small>
                 </div>
 
-                <!-- METODE & SUBMIT -->
-                <div class="spk-form-group">
-                    <label for="metode">Metode Perhitungan</label>
-                    <select id="metode" name="metode" required class="form-control">
-                        <option value="">-- Pilih Metode --</option>
-                        <option value="saw">Simple Additive Weighting (SAW)</option>
-                        <option value="wp">Weighted Product (WP)</option>
-                        <option value="topsis">TOPSIS</option>
-                        <option value="moora">MOORA</option>
-                    </select>
-                    <div class="spk-action-container" style="margin-top:20px;">
-                        <button type="submit" class="btn-hitung" style="background:#007bff; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Mulai Perhitungan</button>
-                    </div>
+                <!-- SUBMIT -->
+                <div class="spk-action-container" style="margin-top:20px;">
+                    <button type="submit" class="btn-hitung" style="background:#007bff; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">Mulai Perhitungan (Semua Metode)</button>
                 </div>
             </div>
         </form>
@@ -135,49 +131,54 @@ if (!isset($_SESSION['user_id'])) {
         $arr = [];
         if (!empty($dataBarang)) {
             foreach ($dataBarang as $b) {
-                $arr[] = ['id' => $b['id_barang'], 'nama' => $b['nama_barang']];
+                $arr[] = [
+                    'id' => $b['id_barang'],
+                    'nama' => $b['nama_barang'],
+                    'stok' => $b['stok_tersedia']
+                ];
             }
         }
         echo json_encode($arr, JSON_UNESCAPED_UNICODE);
     ?>;
 
     function escapeHtml(str) {
-        if (!str) return '';
-        return String(str).replace(/[&<>]/g, function(m) {
+        if (str === null || str === undefined) return '';
+        return String(str).replace(/[&<>"'`]/g, function(m) {
             if (m === '&') return '&amp;';
             if (m === '<') return '&lt;';
             if (m === '>') return '&gt;';
+            if (m === '"') return '&quot;';
+            if (m === "'") return '&#39;';
+            if (m === '`') return '&#96;';
             return m;
         });
     }
 
     // Tambah baris ke tabel matriks (untuk barang dari dropdown)
-    function tambahBarisMatriks(idBarang, namaBarang) {
+    function tambahBarisMatriks(idBarang, namaBarang, stokTersedia, stokMinimum, usiaPakai, tglBeli, statusGaransi, spesifikasi) {
         const tbody = document.getElementById('table-body');
         const row = tbody.insertRow();
-        row.insertCell(0).innerHTML = `<input type="text" name="id_barang[]" value="${escapeHtml(idBarang)}" readonly class="form-control-sm">`;
-        row.insertCell(1).innerHTML = `<input type="text" name="nama_barang[]" value="${escapeHtml(namaBarang)}" readonly class="form-control-sm">`;
-        row.insertCell(2).innerHTML = `<input type="number" step="0.01" name="nilai_kelangkaan[]" class="form-control-sm" placeholder="0" required>`;
-        row.insertCell(3).innerHTML = `<input type="number" step="0.01" name="nilai_usia[]" class="form-control-sm" placeholder="0" required>`;
-        row.insertCell(4).innerHTML = `<input type="number" step="0.01" name="nilai_garansi[]" class="form-control-sm" placeholder="0" required>`;
-        row.insertCell(5).innerHTML = `<input type="number" step="0.01" name="nilai_spesifikasi[]" class="form-control-sm" placeholder="0" required>`;
-        const btnHapus = document.createElement('button');
-        btnHapus.textContent = 'Hapus';
-        btnHapus.className = 'btn-hapus-baris';
-        btnHapus.onclick = function() { row.remove(); };
-        row.insertCell(6).appendChild(btnHapus);
-    }
+        
+        // Hitung usia pakai dari tanggal beli jika ada
+        let calculatedUsia = parseInt(usiaPakai) || 0;
+        if (tglBeli && tglBeli !== 'null') {
+            const buyDate = new Date(tglBeli);
+            const today = new Date();
+            const diffTime = Math.abs(today - buyDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            calculatedUsia = Math.floor(diffDays / 30); // Convert to months
+        }
+        
+        const rasioKelangkaan = stokMinimum > 0 ? parseFloat(stokTersedia) / parseFloat(stokMinimum) : 0;
+        const garansiScore = statusGaransi === 'Aktif' ? 1 : (statusGaransi === 'Hampir Habis' ? 0.5 : 0);
+        const spesifikasiScore = spesifikasi ? Math.min(Math.max(spesifikasi.length / 30, 0.1), 10) : 0;
 
-    // Tambah baris kosong untuk barang baru (manual)
-    function tambahBarisManual() {
-        const tbody = document.getElementById('table-body');
-        const row = tbody.insertRow();
-        row.insertCell(0).innerHTML = `<input type="text" name="id_barang[]" placeholder="ID (opsional)" class="form-control-sm">`;
-        row.insertCell(1).innerHTML = `<input type="text" name="nama_barang[]" placeholder="Nama Barang" class="form-control-sm" required>`;
-        row.insertCell(2).innerHTML = `<input type="number" step="0.01" name="nilai_kelangkaan[]" class="form-control-sm" placeholder="0" required>`;
-        row.insertCell(3).innerHTML = `<input type="number" step="0.01" name="nilai_usia[]" class="form-control-sm" placeholder="0" required>`;
-        row.insertCell(4).innerHTML = `<input type="number" step="0.01" name="nilai_garansi[]" class="form-control-sm" placeholder="0" required>`;
-        row.insertCell(5).innerHTML = `<input type="number" step="0.01" name="nilai_spesifikasi[]" class="form-control-sm" placeholder="0" required>`;
+        row.insertCell(0).innerHTML = `<input type="hidden" name="id_barang[]" value="${escapeHtml(idBarang)}"><input type="hidden" name="stok_tersedia[]" value="${escapeHtml(stokTersedia)}">${escapeHtml(idBarang)}`;
+        row.insertCell(1).innerHTML = `<input type="hidden" name="nama_barang[]" value="${escapeHtml(namaBarang)}"><input type="text" value="${escapeHtml(namaBarang)}" readonly class="form-control-sm">`;
+        row.insertCell(2).innerHTML = `<input type="number" step="0.01" name="nilai_kelangkaan[]" class="form-control-sm" value="${rasioKelangkaan.toFixed(2)}" readonly>`;
+        row.insertCell(3).innerHTML = `<input type="number" step="1" name="nilai_usia[]" class="form-control-sm" value="${calculatedUsia}" readonly>`;
+        row.insertCell(4).innerHTML = `<div><input type="text" value="${escapeHtml(statusGaransi)}" readonly class="form-control-sm" style="background:#e9ecef;"><input type="hidden" name="nilai_garansi[]" value="${garansiScore}"></div>`;
+        row.insertCell(5).innerHTML = `<div><textarea readonly class="form-control-sm" style="min-width:200px; min-height:50px;">${escapeHtml(spesifikasi)}</textarea><input type="hidden" name="nilai_spesifikasi[]" value="${spesifikasiScore.toFixed(2)}"></div>`;
         const btnHapus = document.createElement('button');
         btnHapus.textContent = 'Hapus';
         btnHapus.className = 'btn-hapus-baris';
@@ -191,20 +192,20 @@ if (!isset($_SESSION['user_id'])) {
         const idBarang = select.value;
         const selectedOption = select.options[select.selectedIndex];
         const namaBarang = selectedOption.getAttribute('data-nama');
+        const stokTersedia = selectedOption.getAttribute('data-stok') || '0';
+        const stokMinimum = selectedOption.getAttribute('data-minimum') || '0';
+        const usiaPakai = selectedOption.getAttribute('data-usia') || '0';
+        const tglBeli = selectedOption.getAttribute('data-tgl-beli') || '';
+        const statusGaransi = selectedOption.getAttribute('data-garansi') || 'Tidak Aktif';
+        const spesifikasi = selectedOption.getAttribute('data-spec') || '';
         if (!idBarang) {
             alert('Silakan pilih barang terlebih dahulu.');
             return;
         }
-        // Optional: cek apakah sudah ada di tabel? (boleh dibiarkan double)
-        tambahBarisMatriks(idBarang, namaBarang);
-        // reset pilihan
+        tambahBarisMatriks(idBarang, namaBarang, stokTersedia, stokMinimum, usiaPakai, tglBeli, statusGaransi, spesifikasi);
         select.value = '';
     });
 
-    // Event tombol tambah manual
-    document.getElementById('btn-tambah-manual').addEventListener('click', function() {
-        tambahBarisManual();
-    });
 </script>
 </body>
 </html>
