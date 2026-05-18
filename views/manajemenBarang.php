@@ -63,12 +63,7 @@ if (!isset($_SESSION['user_id'])) {
             else $kritis++;
         }
         ?>
-        <div class="summary-grid">
-            <div class="summary-card"><div class="card-color-box bg-blue">📦</div><div class="card-info"><h4>Total Barang</h4><h2><?= $total ?></h2><p>Semua item inventaris</p></div></div>
-            <div class="summary-card"><div class="card-color-box bg-green">✔</div><div class="card-info"><h4>Stok Aman</h4><h2><?= $aman ?></h2><p>Stok di atas minimum</p></div></div>
-            <div class="summary-card"><div class="card-color-box bg-yellow">⚠</div><div class="card-info"><h4>Stok Hampir Habis</h4><h2><?= $hampir ?></h2><p>Stok mendekati minimum</p></div></div>
-            <div class="summary-card"><div class="card-color-box bg-red">✖</div><div class="card-info"><h4>Stok Kritis</h4><h2><?= $kritis ?></h2><p>Stok di bawah minimum</p></div></div>
-        </div>
+        
 
         <!-- Tabel Barang -->
         <div class="box-panel table-wrapper">
